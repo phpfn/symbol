@@ -30,7 +30,7 @@ Usage in defines
 ```php
 <?php
 
-define('PLACEHOLDER', Symbol::create('placeholder'));
+define('PLACEHOLDER', Symbol::create('a'));
 ```
 
 Usage in classes
@@ -38,11 +38,24 @@ Usage in classes
 ```php
 class Example
 {
-    public const _ = PLACEHOLDER; // Awesome magic %)
+    public const EXAMPLE_CONST = PLACEHOLDER; // Awesome magic %)
 }
 ```
 
-##
+## Reflection
 
-// TODO
+```php
+<?php
+
+$reflection = Symbol::getReflection(Example::EXAMPLE_CONST);
+
+echo $reflection; 
+// expected output: "Symbol(a)"
+
+echo $reflection->getName();
+// expected output: "a"
+
+echo $reflection->getFileName();
+// expected output: path/to/file.php (with Symbol::create expression definition).
+```
 
