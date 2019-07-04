@@ -39,6 +39,8 @@ $b = \Serafim\Symbol\Symbol::create();
 
 ```
 
+### Names
+
 Each symbol can have a name (description), 
 which is passed as the first parameter.
 
@@ -48,6 +50,8 @@ which is passed as the first parameter.
 $symbol = symbol('id');
 
 ```
+
+### Uniqueness
 
 Please note that the symbols are **unique** regardless 
 of the names.
@@ -62,6 +66,8 @@ var_dump(symbol('example') === symbol('example'));
 // expected output: false
 
 ```
+
+### Usage In Constants
 
 Symbols can be used as variable values and even constant!
 
@@ -83,13 +89,23 @@ var_dump(is_symbol(Example::CLASS_CONST));
 
 ```
 
-Notice that the symbols are neither a string, nor a number, nor anything (almost :3) else.
+### Serialization
+
+However cannot be serialized:
 
 ```php
 <?php
 
-var_dump(\is_symbol(symbol()));
-// expected output: true
+serialize(symbol());
+// Error
+```
+
+### Type Comparison
+
+Notice that the symbols are neither a string, nor a number, nor anything (almost :3) else.
+
+```php
+<?php
 
 var_dump(\is_string(symbol()));
 // expected output: false
@@ -112,12 +128,16 @@ var_dump(\is_object(symbol()));
 var_dump(\is_null(symbol()));
 // expected output: false
 
-var_dump(\is_resource(symbol()));
-// probably... ;)
+var_dump(\is_symbol(symbol()));
+// expected output: true
 
+var_dump(\is_resource(symbol()));
+// expected output: true
 ```
 
-Note that symbols are always passed by value.
+### Clone
+
+Note that symbols are always passed by reference and cloning not allowed.
 
 ```php
 <?php
@@ -127,7 +147,13 @@ $b = $a;
 
 var_dump($a === $b);
 // expected output: true
+
+var_dump(clone $a);
+// Error
+
 ```
+
+### Naming
 
 And in order to get the name of a symbol, 
 just use the `Symbol::key()` method:
@@ -146,6 +172,8 @@ var_dump(symbol('hello') === symbol('hello'));
 // expected output: false
 ```
 
+### Reflection
+
 And you can find out some details about this type:
 
 ```php
@@ -162,6 +190,8 @@ $reflection->getStartLine(); // Provides definition line
 // etc...
  
 ```
+
+### Global Symbols
 
 In addition to all this, you can use the `Symbol::for` method to create 
 a global symbol. The `Symbol::for($key)` method searches for existing symbols 
