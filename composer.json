@@ -1,7 +1,7 @@
 {
-    "name": "serafim/placeholder",
+    "name": "serafim/symbol",
     "type": "library",
-    "description": "Simple placeholder implementation for functional constructions",
+    "description": "The Symbol type PHP implementation",
     "license": "MIT",
     "keywords": [
         "placeholder",
@@ -9,10 +9,10 @@
         "functional",
         "type"
     ],
-    "homepage": "https://github.com/SerafimArts/symbol",
+    "homepage": "https://github.com/SerafimArts/Symbol",
     "support": {
-        "issues": "https://github.com/SerafimArts/symbol/issues",
-        "source": "https://github.com/SerafimArts/symbol"
+        "issues": "https://github.com/SerafimArts/Symbol/issues",
+        "source": "https://github.com/SerafimArts/Symbol"
     },
     "authors": [
         {
