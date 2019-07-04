@@ -31,12 +31,3 @@ if (! \function_exists('is_symbol')) {
         return Symbol::isSymbol($symbol);
     }
 }
-
-if (! \class_exists('ReflectionSymbol')) {
-    \class_alias(\Serafim\Symbol\ReflectionSymbol::class, 'ReflectionSymbol');
-}
-
-
-if (! \class_exists('Symbol')) {
-    \class_alias(\Serafim\Symbol\Symbol::class, 'Symbol');
-}
