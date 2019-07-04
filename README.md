@@ -7,10 +7,10 @@
     <a href="https://codeclimate.com/github/SerafimArts/Symbol/maintainability"><img src="https://api.codeclimate.com/v1/badges/43f91ec27407081b8d51/maintainability" /></a>
 </p>
 <p align="center">
-    <a href="https://packagist.org/packages/SerafimArts/Symbol"><img src="https://img.shields.io/badge/PHP-7.1+-6f4ca5.svg" alt="PHP 7.1+"></a>
-    <a href="https://packagist.org/packages/SerafimArts/Symbol"><img src="https://poser.pugx.org/SerafimArts/Symbol/version" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/SerafimArts/Symbol"><img src="https://poser.pugx.org/SerafimArts/Symbol/downloads" alt="Total Downloads"></a>
-    <a href="https://raw.githubusercontent.com/SerafimArts/Symbol/1.4.x/LICENSE.md"><img src="https://poser.pugx.org/SerafimArts/Symbol/license" alt="License MIT"></a>
+    <a href="https://packagist.org/packages/serafim/symbol"><img src="https://img.shields.io/badge/PHP-7.1+-6f4ca5.svg" alt="PHP 7.1+"></a>
+    <a href="https://packagist.org/packages/serafim/symbol"><img src="https://poser.pugx.org/SerafimArts/Symbol/version" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/serafim/symbol"><img src="https://poser.pugx.org/SerafimArts/Symbol/downloads" alt="Total Downloads"></a>
+    <a href="https://raw.githubusercontent.com/SerafimArts/Symbol/master/LICENSE.md"><img src="https://poser.pugx.org/SerafimArts/Symbol/license" alt="License MIT"></a>
 </p>
 
 The `symbol()` function returns a value of type symbol, has static 
