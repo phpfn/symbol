@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Serafim\Symbol\Tests\Reflection;
 
+use Serafim\Symbol\ReflectionSymbol;
 use Serafim\Symbol\Symbol;
 use Serafim\Symbol\Tests\TestCase;
-use Serafim\Symbol\ReflectionSymbol;
 
 /**
  * Class ReflectionTestCase
@@ -31,7 +31,7 @@ abstract class ReflectionTestCase extends TestCase
             'bool'     => [true],
             'array'    => [[42]],
             'object'   => [new \StdClass()],
-            'resource' => [fopen('php://memory', 'rb')],
+            'resource' => [\fopen('php://memory', 'rb')],
         ];
     }
 
