@@ -39,7 +39,7 @@ $b = \Serafim\Symbol\Symbol::create();
 
 ```
 
-### Names
+#### Names
 
 Each symbol can have a name (description), 
 which is passed as the first parameter.
@@ -51,7 +51,7 @@ $symbol = symbol('id');
 
 ```
 
-### Uniqueness
+#### Uniqueness
 
 Please note that the symbols are **unique** regardless 
 of the names.
@@ -67,7 +67,7 @@ var_dump(symbol('example') === symbol('example'));
 
 ```
 
-### Usage In Constants
+#### Usage In Constants
 
 Symbols can be used as variable values and even constant!
 
@@ -89,7 +89,7 @@ var_dump(is_symbol(Example::CLASS_CONST));
 
 ```
 
-### Serialization
+#### Serialization
 
 However cannot be serialized:
 
@@ -100,7 +100,7 @@ serialize(symbol());
 // Error
 ```
 
-### Type Comparison
+#### Type Comparison
 
 Notice that the symbols are neither a string, nor a number, nor anything (almost :3) else.
 
@@ -135,7 +135,7 @@ var_dump(\is_resource(symbol()));
 // expected output: true
 ```
 
-### Clone
+#### Clone
 
 Note that symbols are always passed by reference and cloning not allowed.
 
@@ -153,7 +153,7 @@ var_dump(clone $a);
 
 ```
 
-### Naming
+#### Naming
 
 And in order to get the name of a symbol, 
 just use the `Symbol::key()` method:
@@ -172,7 +172,7 @@ var_dump(symbol('hello') === symbol('hello'));
 // expected output: false
 ```
 
-### Reflection
+#### Reflection
 
 And you can find out some details about this type:
 
@@ -191,7 +191,7 @@ $reflection->getStartLine(); // Provides definition line
  
 ```
 
-### Global Symbols
+#### Global Symbols
 
 In addition to all this, you can use the `Symbol::for` method to create 
 a global symbol. The `Symbol::for($key)` method searches for existing symbols 
