@@ -51,10 +51,11 @@ final class ReflectionSymbol implements \Reflector
      * ReflectionSymbol constructor.
      *
      * @param mixed|resource $symbol
+     * @throws \ReflectionException
      */
     public function __construct($symbol)
     {
-        \assert(Symbol::isSymbol($symbol));
+        self::assertIsSymbol($symbol, __METHOD__);
 
         $meta = Metadata::read($symbol);
 
@@ -87,6 +88,21 @@ final class ReflectionSymbol implements \Reflector
     }
 
     /**
+     * @param mixed $symbol
+     * @param string $method
+     * @return void
+     * @throws \ReflectionException
+     */
+    private static function assertIsSymbol($symbol, string $method): void
+    {
+        if (! Symbol::isSymbol($symbol)) {
+            $e = TypeError::invalidArgument($method, 'symbol', \gettype($symbol));
+
+            throw new \ReflectionException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+    /**
      * @param mixed|resource $symbol
      * @param bool $return
      * @return string|void
@@ -94,9 +110,7 @@ final class ReflectionSymbol implements \Reflector
      */
     public static function export($symbol, bool $return = false)
     {
-        if (! Symbol::isSymbol($symbol)) {
-            throw new \ReflectionException(\sprintf(self::ERROR_TYPE, __METHOD__, \gettype($symbol)));
-        }
+        self::assertIsSymbol($symbol, __METHOD__);
 
         $reflection = new static($symbol, Metadata::read($symbol));
 

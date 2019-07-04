@@ -14,6 +14,8 @@ use Serafim\Symbol\Metadata\SignInterface;
 
 /**
  * Class Metadata
+ *
+ * @internal Internal class for metadata reading and writing.
  */
 final class Metadata
 {
@@ -33,9 +35,16 @@ final class Metadata
     private const CONTEXT_FIELD_SIGN = '__metadata';
 
     /**
-     * @var string
+     * @param resource $resource
+     * @param string $method
+     * @return void
      */
-    private const ERROR_TYPE = '%s() expects parameter 1 to be a stream resource, but %s given';
+    private static function assertIsStream($resource, string $method): void
+    {
+        if (! self::isStream($resource)) {
+            throw TypeError::invalidArgument($method, 'stream resource', \gettype($resource));
+        }
+    }
 
     /**
      * @param resource $resource
@@ -44,9 +53,7 @@ final class Metadata
      */
     public static function write($resource, string $name)
     {
-        if (! self::isStream($resource)) {
-            throw new \TypeError(\sprintf(self::ERROR_TYPE, __METHOD__, \gettype($resource)));
-        }
+        self::assertIsStream($resource, __METHOD__);
 
         \stream_context_set_option($resource, self::context($name));
 
@@ -81,9 +88,7 @@ final class Metadata
      */
     public static function read($resource): ?SignInterface
     {
-        if (! self::isStream($resource)) {
-            throw new \TypeError(\sprintf(self::ERROR_TYPE, __METHOD__, \gettype($resource)));
-        }
+        self::assertIsStream($resource, __METHOD__);
 
         $options = \stream_context_get_options($resource);
 
@@ -96,9 +101,7 @@ final class Metadata
      */
     public static function exists($resource): bool
     {
-        if (! self::isStream($resource)) {
-            throw new \TypeError(\sprintf(self::ERROR_TYPE, __METHOD__, \gettype($resource)));
-        }
+        self::assertIsStream($resource, __METHOD__);
 
         $options = \stream_context_get_options($resource);
 

@@ -22,21 +22,24 @@ final class Symbol implements FactoryInterface
     /**
      * @var string
      */
-    private const ERROR_TYPE = '%s() expects parameter 1 to be a symbol, but %s given';
-
-    /**
-     * @var string
-     */
     private const ANONYMOUS = 'symbol@anonymous#%d';
 
     /**
-     * Symbol constructor.
-     *
-     * @throws \TypeError
+     * @var \Serafim\Symbol\Symbol
      */
-    public function __construct()
+    private static $instance;
+
+    /**
+     * @var array|resource[]|mixed[]
+     */
+    private $registry = [];
+
+    /**
+     * Symbol constructor.
+     */
+    private function __construct()
     {
-        throw new \TypeError(__CLASS__ . ' cannot be instantiated');
+        // Close constructor
     }
 
     /**
@@ -45,26 +48,25 @@ final class Symbol implements FactoryInterface
      */
     public static function for(string $name)
     {
-        if ($symbol = self::registry()[$name] ?? null) {
-            return $symbol;
+        if ($name === '') {
+            throw TypeError::emptyName();
         }
 
-        return self::registry([$name => self::create($name)])[$name];
+        $instance = self::instance();
+
+        if (! \array_key_exists($name, $instance->registry)) {
+            $instance->registry[$name] = self::create($name);
+        }
+
+        return $instance->registry[$name];
     }
 
     /**
-     * @param array $appends
-     * @return array
+     * @return \Serafim\Symbol\Symbol
      */
-    private static function registry(array $appends = []): array
+    private static function instance(): self
     {
-        static $local = [];
-
-        if (\count($appends) !== 0) {
-            $local = \array_merge($local, $appends);
-        }
-
-        return $local;
+        return self::$instance ?? self::$instance = new self();
     }
 
     /**
@@ -73,6 +75,10 @@ final class Symbol implements FactoryInterface
      */
     public static function create(string $name = null)
     {
+        if ($name === '') {
+            throw TypeError::emptyName();
+        }
+
         $resource = @\fopen('php://memory', 'rb');
 
         if (! Metadata::isStream($resource)) {
@@ -95,18 +101,6 @@ final class Symbol implements FactoryInterface
     }
 
     /**
-     * @param resource|mixed $symbol
-     * @param string $method
-     * @return void
-     */
-    private static function assertIsSymbol($symbol, string $method): void
-    {
-        if (! self::isSymbol($symbol)) {
-            throw new \TypeError(\sprintf(self::ERROR_TYPE, $method, \gettype($symbol)));
-        }
-    }
-
-    /**
      * @param mixed|resource $symbol
      * @return string|null
      */
@@ -114,9 +108,25 @@ final class Symbol implements FactoryInterface
     {
         self::assertIsSymbol($symbol, __METHOD__);
 
-        $key = self::key($symbol);
+        [$name, $instance] = [self::key($symbol), self::instance()];
 
-        return (self::registry()[$key] ?? null) === $symbol ? $key : null;
+        $exists = \array_key_exists($name, $instance->registry);
+
+        return $exists && $instance->registry[$name] === $symbol
+            ? $name
+            : null;
+    }
+
+    /**
+     * @param resource|mixed $symbol
+     * @param string $method
+     * @return void
+     */
+    private static function assertIsSymbol($symbol, string $method): void
+    {
+        if (! self::isSymbol($symbol)) {
+            throw TypeError::invalidArgument($method, 'symbol', \gettype($symbol));
+        }
     }
 
     /**
@@ -147,6 +157,7 @@ final class Symbol implements FactoryInterface
     /**
      * @param resource|mixed $symbol
      * @return ReflectionSymbol
+     * @throws \ReflectionException
      */
     public static function getReflection($symbol): ReflectionSymbol
     {
@@ -154,5 +165,21 @@ final class Symbol implements FactoryInterface
 
         /** @noinspection NullPointerExceptionInspection */
         return new ReflectionSymbol($symbol);
+    }
+
+    /**
+     * @return void
+     */
+    public function __wakeup()
+    {
+        throw new \LogicException(\sprintf('Deserialization of %s is not allowed', __CLASS__));
+    }
+
+    /**
+     * @return void
+     */
+    private function __clone()
+    {
+        throw new \LogicException(\sprintf('Clone of %s is not allowed', __CLASS__));
     }
 }
