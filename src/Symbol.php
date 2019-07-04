@@ -170,7 +170,7 @@ final class Symbol implements FactoryInterface
     /**
      * @return void
      */
-    public function __wakeup()
+    public function __wakeup(): void
     {
         throw new \LogicException(\sprintf('Deserialization of %s is not allowed', __CLASS__));
     }

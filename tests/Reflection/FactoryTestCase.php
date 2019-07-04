@@ -9,9 +9,8 @@ declare(strict_types=1);
 
 namespace Serafim\Symbol\Tests\Reflection;
 
-use Serafim\Symbol\Symbol;
-use Serafim\Symbol\TypeError;
 use Serafim\Symbol\ReflectionSymbol;
+use Serafim\Symbol\Symbol;
 
 /**
  * Class FactoryTestCase

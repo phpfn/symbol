@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 use Serafim\Symbol\Symbol;
 
-
 if (! \function_exists('symbol')) {
     /**
      * @param string|null $name
@@ -34,11 +33,10 @@ if (! \function_exists('is_symbol')) {
 }
 
 if (! \class_exists('ReflectionSymbol')) {
-    class_alias(\Serafim\Symbol\ReflectionSymbol::class, 'ReflectionSymbol');
+    \class_alias(\Serafim\Symbol\ReflectionSymbol::class, 'ReflectionSymbol');
 }
 
 
 if (! \class_exists('Symbol')) {
-    class_alias(\Serafim\Symbol\Symbol::class, 'Symbol');
+    \class_alias(\Serafim\Symbol\Symbol::class, 'Symbol');
 }
-

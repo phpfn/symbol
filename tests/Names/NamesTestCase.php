@@ -29,7 +29,7 @@ abstract class NamesTestCase extends TestCase
             'bool'     => [true],
             'array'    => [[42]],
             'object'   => [new \StdClass()],
-            'resource' => [fopen('php://memory', 'rb')],
+            'resource' => [\fopen('php://memory', 'rb')],
         ];
     }
 
